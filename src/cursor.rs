@@ -65,8 +65,13 @@ impl CursorManager {
         }
     }
 
-    /// Get the current rendering cursor.
-    pub fn get_render_cursor(&self, scale: i32, fractional_scale: f64) -> RenderCursor {
+    /// Get the current rendering cursor at integer scale.
+    pub fn get_render_cursor(&self, scale: i32) -> RenderCursor {
+        self.get_render_cursor_fractional(scale, scale as f64)
+    }
+
+    /// Get the current rendering cursor taking fractional scale into account.
+    pub fn get_render_cursor_fractional(&self, scale: i32, fractional_scale: f64) -> RenderCursor {
         match self.current_cursor.clone() {
             CursorImageStatus::Hidden => RenderCursor::Hidden,
             CursorImageStatus::Surface(surface) => {
@@ -349,6 +354,16 @@ impl CursorTextureCache {
     }
 
     pub fn get(
+        &self,
+        icon: CursorIcon,
+        output_scale: i32,
+        cursor: &XCursor,
+        idx: usize,
+    ) -> MemoryRenderBuffer {
+        self.get_with_pixel_size(icon, 0, output_scale, cursor, idx)
+    }
+
+    pub fn get_with_pixel_size(
         &self,
         icon: CursorIcon,
         pixel_size: i32,

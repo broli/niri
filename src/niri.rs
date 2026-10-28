@@ -4023,7 +4023,9 @@ impl Niri {
         // Get the render cursor to draw.
         let cursor_scale = output_scale.integer_scale();
         let fractional_scale = output_scale.fractional_scale();
-        let render_cursor = self.cursor_manager.get_render_cursor(cursor_scale, fractional_scale);
+        let render_cursor = self
+            .cursor_manager
+            .get_render_cursor_fractional(cursor_scale, fractional_scale);
 
         let output_scale = Scale::from(fractional_scale);
 
@@ -4075,7 +4077,7 @@ impl Niri {
 
                 let texture = self
                     .cursor_texture_cache
-                    .get(icon, pixel_size, scale, &cursor, idx);
+                    .get_with_pixel_size(icon, pixel_size, scale, &cursor, idx);
                 match MemoryRenderBufferRenderElement::from_buffer(
                     renderer,
                     element_pos,
@@ -6060,6 +6062,7 @@ impl Niri {
                 icon,
                 scale,
                 cursor,
+                ..
             } => {
                 let (idx, _frame) = cursor.frame(self.start_time.elapsed().as_millis() as u32);
                 let texture = self.cursor_texture_cache.get(icon, scale, &cursor, idx);

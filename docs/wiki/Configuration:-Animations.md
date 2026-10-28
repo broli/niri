@@ -450,18 +450,6 @@ animations {
 }
 ```
 
-<<<<<<< HEAD
-### Specifying `custom-shader` by Path
-
-<sup>Since: next release</sup>
-
-For animations that accept a `custom-shader`, you can also attach the shader by path, rather than writing it out inline.
-
-```kdl,must-fail
-animations {
-    window-open {
-        custom-shader path="./my-shader.glsl"
-=======
 #### `cursor-expand`
 
 <sup>Since: 25.??</sup>
@@ -488,7 +476,20 @@ animations {
     cursor-shrink {
         duration-ms 300
         curve "ease-out-cubic"
->>>>>>> 7ec272ed (feat: move cursor shake animation to custom animations)
+    }
+}
+```
+
+### Specifying `custom-shader` by Path
+
+<sup>Since: next release</sup>
+
+For animations that accept a `custom-shader`, you can also attach the shader by path, rather than writing it out inline.
+
+```kdl,must-fail
+animations {
+    window-open {
+        custom-shader path="./my-shader.glsl"
     }
 }
 ```
